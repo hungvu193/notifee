@@ -238,7 +238,7 @@ public class NotifeeApiModule extends ReactContextBaseJavaModule implements Perm
   @ReactMethod
   public void requestPermission(Promise promise) {
     // For Android 12 and below, we return the notification settings
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+    if (Build.VERSION.SDK_INT < 30) {
       Notifee.getInstance()
           .getNotificationSettings(
               (e, aBundle) -> NotifeeReactUtils.promiseResolver(promise, e, aBundle));
@@ -265,7 +265,7 @@ public class NotifeeApiModule extends ReactContextBaseJavaModule implements Perm
             (e, aBundle) -> NotifeeReactUtils.promiseResolver(promise, e, aBundle));
 
     activity.requestPermissions(
-        new String[] {Manifest.permission.POST_NOTIFICATIONS},
+        new String[] {"android.permission.POST_NOTIFICATIONS"},
         Notifee.REQUEST_CODE_NOTIFICATION_PERMISSION,
         this);
   }
